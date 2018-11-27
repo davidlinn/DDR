@@ -1,0 +1,43 @@
+module stepShiftRegister(input logic bpmClk,
+								 input logic reset,
+								 input logic [3:0] inputStep,
+								 output logic [7:0] rowEn3,
+								 output logic [7:0] rowEn2,
+								 output logic [7:0] rowEn1,
+								 output logic [7:0] rowEn0,
+								 output logic [3:0] actionStep);
+								 
+	logic [3:0] step0, step1, step2, step3, step4, step5, step6, step7;
+	
+	// shift register to shift steps every beat
+	always_ff@(posedge clk)
+		if (reset) begin
+				step0 <= 4'h0;
+				step1 <= 4'h0;
+				step2 <= 4'h0;
+				step3 <= 4'h0;
+				step4 <= 4'h0;
+				step5 <= 4'h0;
+				step6 <= 4'h0;
+				step7 <= 4'h0;
+			end
+		else begin
+			step0 <= currentStep;
+			step1 <= step0;
+			step2 <= step1;
+			step3 <= step2;
+			step4 <= step3;
+			step5 <= step4;
+			step6 <= step5;
+			step7 <= step6;
+		end
+	
+	assign actionStep = step7;
+	
+	assign rowEn3 = ~{step0[3], step1[3], step2[3], step3[3], step4[3], step5[3], step6[3], step7[3]};
+	assign rowEn2 = ~{step0[2], step1[2], step2[2], step3[2], step4[2], step5[2], step6[2], step7[2]};
+	assign rowEn1 = ~{step0[1], step1[1], step2[1], step3[1], step4[1], step5[1], step6[1], step7[1]};
+	assign rowEn0 = ~{step0[0], step1[0], step2[0], step3[0], step4[0], step5[0], step6[0], step7[0]};
+	
+endmodule
+	
