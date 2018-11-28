@@ -2,7 +2,7 @@ module levelToPulse(input logic clk,
         input logic reset,
         input logic a,
         output logic en);
- typedef enum {s0, s1, s2}xzc StateType;
+ typedef enum {s0, s1, s2} StateType;
  
  StateType state;
  StateType nextState;

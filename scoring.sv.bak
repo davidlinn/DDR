@@ -2,10 +2,10 @@ module scoring(input logic clk,
                     input logic reset,
                     input logic step,
                     input logic beatEn,
-                    input logic [3:0] button,
+                    input logic button,
                     output logic [31:0] score,
                     output logic redLed,
-                    output logic greenLed);
+                    output logic greenLed)
     
     //INPUTS AND TIME CAPTURE
     logic [3:0] buttonPulse;
@@ -63,7 +63,7 @@ module scoring(input logic clk,
     
     logic beatReset;
     //Beat is reset halfway between beatEnables
-    levelToPulse l2p_4(clk, reset, ~bpmClk, beatReset);
+    assign beatReset = levelToPulse l2p_4(clk, reset, ~bpmClk, beatReset);
 
     logic [3:0] buttonPressedDuringStep;
     always_ff @(posedge clk) begin

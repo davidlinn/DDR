@@ -6,7 +6,8 @@ module DDR(input logic clk,
 			  output logic [7:0] col,
 			  output logic [3:0] inputStep,
 			  output logic redLed,
-			  output logic greenLed);
+			  output logic greenLed,
+			  output logic );
 			  
 	logic [15:0] counter;
 	logic multiplexClk;
@@ -29,7 +30,9 @@ module DDR(input logic clk,
 	assign inputStep = colEn;
 
 	logic [31:0] score;
-	scoring score(clk,reset,actionStep,stepEn,button,score,redLed,greenLed)
+	scoring scoring0(clk,reset,actionStep,stepEn,button,score,redLed,greenLed);
+	
+	scoreDisplay scoreDisplay0(clk,reset,score[8:0],leftDigitTransBase,rightDigitTransBase,seg,);
 	
 endmodule
 
