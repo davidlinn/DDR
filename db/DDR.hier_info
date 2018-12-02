@@ -1,11 +1,15 @@
 |DDR
-clk => clk.IN3
-bpmClk => bpmClk.IN1
-reset => reset.IN4
+clk => clk.IN4
+bpmClk => bpmClk.IN2
+reset => reset.IN5
 step[0] => step[0].IN1
 step[1] => step[1].IN1
 step[2] => step[2].IN1
 step[3] => step[3].IN1
+button[0] => button[0].IN1
+button[1] => button[1].IN1
+button[2] => button[2].IN1
+button[3] => button[3].IN1
 colEnOut[0] <= colEn[0].DB_MAX_OUTPUT_PORT_TYPE
 colEnOut[1] <= colEn[1].DB_MAX_OUTPUT_PORT_TYPE
 colEnOut[2] <= colEn[2].DB_MAX_OUTPUT_PORT_TYPE
@@ -18,12 +22,17 @@ col[4] <= stepShiftRegister:stepReg.port5
 col[5] <= stepShiftRegister:stepReg.port5
 col[6] <= stepShiftRegister:stepReg.port5
 col[7] <= stepShiftRegister:stepReg.port5
-inputStep[0] <= colEn[0].DB_MAX_OUTPUT_PORT_TYPE
-inputStep[1] <= colEn[1].DB_MAX_OUTPUT_PORT_TYPE
-inputStep[2] <= colEn[2].DB_MAX_OUTPUT_PORT_TYPE
-inputStep[3] <= colEn[3].DB_MAX_OUTPUT_PORT_TYPE
-redLed <= scoring:scoring0.port6
-greenLed <= scoring:scoring0.port7
+redLed <= scoring:scoring0.port7
+greenLed <= scoring:scoring0.port8
+sevenSegDisplay[0] <= scoreDisplay:scoreDisplay0.port5
+sevenSegDisplay[1] <= scoreDisplay:scoreDisplay0.port5
+sevenSegDisplay[2] <= scoreDisplay:scoreDisplay0.port5
+sevenSegDisplay[3] <= scoreDisplay:scoreDisplay0.port5
+sevenSegDisplay[4] <= scoreDisplay:scoreDisplay0.port5
+sevenSegDisplay[5] <= scoreDisplay:scoreDisplay0.port5
+sevenSegDisplay[6] <= scoreDisplay:scoreDisplay0.port5
+leftDigitTransBase <= scoreDisplay:scoreDisplay0.port3
+rightDigitTransBase <= scoreDisplay:scoreDisplay0.port4
 
 
 |DDR|levelToPulse:l2p
@@ -252,21 +261,29 @@ col[4] <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
 col[5] <= Mux2.DB_MAX_OUTPUT_PORT_TYPE
 col[6] <= Mux1.DB_MAX_OUTPUT_PORT_TYPE
 col[7] <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
-actionStep[0] <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
-actionStep[1] <= Mux2.DB_MAX_OUTPUT_PORT_TYPE
-actionStep[2] <= Mux1.DB_MAX_OUTPUT_PORT_TYPE
-actionStep[3] <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+actionStep[0] <= step7[0].DB_MAX_OUTPUT_PORT_TYPE
+actionStep[1] <= step7[1].DB_MAX_OUTPUT_PORT_TYPE
+actionStep[2] <= step7[2].DB_MAX_OUTPUT_PORT_TYPE
+actionStep[3] <= step7[3].DB_MAX_OUTPUT_PORT_TYPE
 
 
 |DDR|scoring:scoring0
 clk => clk.IN5
 reset => reset.IN5
-step => Equal0.IN3
-beatEn => ~NO_FANOUT~
+step[0] => Equal0.IN3
+step[0] => Equal1.IN3
+step[1] => Equal0.IN2
+step[1] => Equal1.IN2
+step[2] => Equal0.IN1
+step[2] => Equal1.IN1
+step[3] => Equal0.IN0
+step[3] => Equal1.IN0
+beatEn => redLed.OUTPUTSELECT
 button[0] => button[0].IN1
 button[1] => button[1].IN1
 button[2] => button[2].IN1
 button[3] => button[3].IN1
+bpmClk => _.IN1
 score[0] <= score[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 score[1] <= score[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 score[2] <= score[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
@@ -276,29 +293,6 @@ score[5] <= score[5]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 score[6] <= score[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 score[7] <= score[7]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 score[8] <= score[8]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[9] <= score[9]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[10] <= score[10]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[11] <= score[11]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[12] <= score[12]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[13] <= score[13]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[14] <= score[14]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[15] <= score[15]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[16] <= score[16]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[17] <= score[17]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[18] <= score[18]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[19] <= score[19]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[20] <= score[20]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[21] <= score[21]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[22] <= score[22]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[23] <= score[23]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[24] <= score[24]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[25] <= score[25]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[26] <= score[26]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[27] <= score[27]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[28] <= score[28]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[29] <= score[29]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[30] <= score[30]~reg0.DB_MAX_OUTPUT_PORT_TYPE
-score[31] <= score[31]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 redLed <= redLed~reg0.DB_MAX_OUTPUT_PORT_TYPE
 greenLed <= greenLed~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
@@ -651,5 +645,43 @@ reset => state[31].ACLR
 a => nextState[0].DATAB
 a => Selector0.IN3
 en <= Equal3.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|DDR|scoreDisplay:scoreDisplay0
+clk => clk.IN1
+reset => ~NO_FANOUT~
+score[0] => scoreHalf.DATAA
+score[1] => scoreHalf.DATAA
+score[2] => scoreHalf.DATAA
+score[3] => scoreHalf.DATAA
+score[4] => scoreHalf.DATAB
+score[5] => scoreHalf.DATAB
+score[6] => scoreHalf.DATAB
+score[7] => scoreHalf.DATAB
+score[8] => ~NO_FANOUT~
+leftDigitTransBase <= counter[16].DB_MAX_OUTPUT_PORT_TYPE
+rightDigitTransBase <= counter[16].DB_MAX_OUTPUT_PORT_TYPE
+seg[0] <= hexto7seg:dispDecoder.port2
+seg[1] <= hexto7seg:dispDecoder.port2
+seg[2] <= hexto7seg:dispDecoder.port2
+seg[3] <= hexto7seg:dispDecoder.port2
+seg[4] <= hexto7seg:dispDecoder.port2
+seg[5] <= hexto7seg:dispDecoder.port2
+seg[6] <= hexto7seg:dispDecoder.port2
+
+
+|DDR|scoreDisplay:scoreDisplay0|hexto7seg:dispDecoder
+clk => ~NO_FANOUT~
+hex[0] => Decoder0.IN3
+hex[1] => Decoder0.IN2
+hex[2] => Decoder0.IN1
+hex[3] => Decoder0.IN0
+seg[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+seg[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+seg[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+seg[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+seg[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+seg[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+seg[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
 
 

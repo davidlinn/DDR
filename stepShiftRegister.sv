@@ -30,7 +30,7 @@ module stepShiftRegister(input logic clk,
 			step7 <= step6;
 		end
 	
-	assign actionStep = col[7:4];
+	assign actionStep = step7;
 	
 	always_comb
 		case (colEn)

@@ -1,8 +1,7 @@
 module scoreDisplay(input logic clk, reset,
 								input logic [8:0] score,
 								output logic leftDigitTransBase, rightDigitTransBase,
-								output logic [6:0] seg,
-								output logic );
+								output logic [6:0] seg);
 	
 	//Alternate LEDs at clk/(32768)=1220 Hz
 	logic [16:0] counter; //16-bit counter
@@ -14,11 +13,9 @@ module scoreDisplay(input logic clk, reset,
 	assign leftDigitTransBase = switch;
 	assign rightDigitTransBase = ~switch;
 	//Switch to 7-segment display decoder
-	logic [3:0] leftDigit;
-	assign leftDigit = score/10;
-	logic [3:0] rightDigit;
-	assign rightDigit = score%10;
-	hexto7seg dispDecoder(clk,,seg);
+	logic [3:0] scoreHalf;
+	assign scoreHalf = (switch ? score[7:4] : score[3:0]);
+	hexto7seg dispDecoder(clk,scoreHalf,seg);
 endmodule
 
 //Module that decodes hexadecimal value to 7- segment display
