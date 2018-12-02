@@ -19,13 +19,16 @@ def sendSteps():
 	# pulse reset signal before sending over steps
 	resetLed.on()
 	resetLed.off()
-	sleepAmount = 60/OneThingBPM
+	sleepAmount = 30/OneThingBPM
 	player = OMXPlayer(Path(OneThingMP3Path))
 	# send over steps
 	for step in OneThingSteps:
 		start = time()
 		stepLeds.value = tuple(step)
 		bpmClockLed.on()
+		end = time()
+		sleep(sleepAmount - (end - start))
+		start = time()
 		bpmClockLed.off()
 		end = time()
 		sleep(sleepAmount - (end - start))
