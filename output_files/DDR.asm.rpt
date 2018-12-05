@@ -1,6 +1,6 @@
 Assembler report for DDR
-Tue Nov 27 21:44:58 2018
-Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+Sat Dec 01 23:00:01 2018
+Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
 ---------------------
@@ -37,7 +37,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Tue Nov 27 21:44:58 2018 ;
+; Assembler Status      ; Successful - Sat Dec 01 23:00:01 2018 ;
 ; Revision Name         ; DDR                                   ;
 ; Top-level Entity Name ; DDR                                   ;
 ; Family                ; Cyclone IV E                          ;
@@ -92,8 +92,8 @@ applicable agreement for further details.
 ; Option         ; Setting                                                  ;
 +----------------+----------------------------------------------------------+
 ; Device         ; EP4CE6E22C8                                              ;
-; JTAG usercode  ; 0x0009F295                                               ;
-; Checksum       ; 0x0009F295                                               ;
+; JTAG usercode  ; 0x000A6A3A                                               ;
+; Checksum       ; 0x000A6A3A                                               ;
 +----------------+----------------------------------------------------------+
 
 
@@ -101,16 +101,16 @@ applicable agreement for further details.
 ; Assembler Messages ;
 +--------------------+
 Info: *******************************************************************
-Info: Running Quartus II 32-bit Assembler
+Info: Running Quartus II 64-Bit Assembler
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Tue Nov 27 21:44:57 2018
+    Info: Processing started: Sat Dec 01 23:00:01 2018
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off DDR -c DDR
 Info (115031): Writing out detailed assembly data for power analysis
 Info (115030): Assembler is generating device programming files
-Info: Quartus II 32-bit Assembler was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 366 megabytes
-    Info: Processing ended: Tue Nov 27 21:44:58 2018
-    Info: Elapsed time: 00:00:01
+Info: Quartus II 64-Bit Assembler was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 4556 megabytes
+    Info: Processing ended: Sat Dec 01 23:00:01 2018
+    Info: Elapsed time: 00:00:00
     Info: Total CPU time (on all processors): 00:00:01
 
 

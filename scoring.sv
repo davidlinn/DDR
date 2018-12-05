@@ -1,9 +1,10 @@
 module scoring(input logic clk,
                     input logic reset,
-                    input logic step,
+                    input logic [3:0] step,
                     input logic beatEn,
                     input logic [3:0] button,
-                    output logic [31:0] score,
+						  input logic bpmClk,
+                    output logic [8:0] score,
                     output logic redLed,
                     output logic greenLed);
     
@@ -16,31 +17,31 @@ module scoring(input logic clk,
 
     logic [63:0] currentTime;
     logic [63:0] beatTime;
-    logic [63:0] button0Time;
+    /*logic [63:0] button0Time;
     logic [63:0] button1Time;
     logic [63:0] button2Time;
-    logic [63:0] button3Time;
+    logic [63:0] button3Time;*/
     always_ff @(posedge clk) begin
         if (reset) begin
             currentTime <= 0;
             beatTime <= 0;
-            button0Time <= 0;
+            /*button0Time <= 0;
             button1Time <= 0;
             button2Time <= 0;
-            button3Time <= 0;
+            button3Time <= 0;*/
         end
         else begin
             currentTime <= currentTime + 1;
             if (beatEn)
                 beatTime <= currentTime;
-            if (buttonPulse[0])
+            /*if (buttonPulse[0])
                 button0Time <= currentTime;
             if (buttonPulse[1])
                 button1Time <= currentTime;
             if (buttonPulse[2])
                 button2Time <= currentTime;
             if (buttonPulse[3])
-                button3Time <= currentTime;
+                button3Time <= currentTime;*/
         end
     end
 
@@ -80,7 +81,7 @@ module scoring(input logic clk,
     end
 
     logic goodStep;
-    assign goodStep = (step == buttonPressedDuringStep);
+    assign goodStep = (step == buttonPressedDuringStep) && (step != 4'b0000);
 
     //CALCULATE SCORE
     logic addGoodStepToScore;
@@ -108,7 +109,7 @@ module scoring(input logic clk,
     end
 
     always_ff @(posedge clk) begin
-        if (ledReset)
+        if (beatEn)
             redLed <= 0;
         else if (redLedEn)
             redLed <= 1;
