@@ -101,6 +101,7 @@ module scoring(input logic clk,
     //LED FEEDBACK
     logic redLedEn;
     logic ledReset;
+	 logic stepExpected;
     always_ff @(posedge clk) begin
         if (ledReset)
             greenLed <= 0;
@@ -114,7 +115,8 @@ module scoring(input logic clk,
         else if (redLedEn)
             redLed <= 1;
     end
-    assign redLedEn = (beatReset && !deltaScore);
+	 assign stepExpected = (| step);
+    assign redLedEn = (beatReset && !deltaScore && stepExpected && !goodStep);
     assign ledReset = (reset || beatReset);
 
 endmodule
