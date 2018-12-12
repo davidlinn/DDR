@@ -17,50 +17,17 @@ module scoring(input logic clk,
 
     logic [63:0] currentTime;
     logic [63:0] beatTime;
-    /*logic [63:0] button0Time;
-    logic [63:0] button1Time;
-    logic [63:0] button2Time;
-    logic [63:0] button3Time;*/
     always_ff @(posedge clk) begin
         if (reset) begin
             currentTime <= 0;
             beatTime <= 0;
-            /*button0Time <= 0;
-            button1Time <= 0;
-            button2Time <= 0;
-            button3Time <= 0;*/
         end
         else begin
             currentTime <= currentTime + 1;
             if (beatEn)
                 beatTime <= currentTime;
-            /*if (buttonPulse[0])
-                button0Time <= currentTime;
-            if (buttonPulse[1])
-                button1Time <= currentTime;
-            if (buttonPulse[2])
-                button2Time <= currentTime;
-            if (buttonPulse[3])
-                button3Time <= currentTime;*/
         end
     end
-
-    //COMPARE BUTTON PRESSES WITH STEPS
-    /*logic [3:0] scoreEn;
-    assign scoreEn = (step & button);
-
-    logic [31:0] diff0;
-    logic [31:0] diff1;
-    logic [31:0] diff2;
-    logic [31:0] diff3;
-    always_comb begin
-        diff0 <= beatTime-button0Time;
-        diff1 <= beatTime-button1Time;
-        diff2 <= beatTime-button2Time;
-        diff3 <= beatTime-button3Time;
-    end*/
-    //logic [31:0] timeSinceBeat;
-    //assign timeSinceBeat = currentTime - beatTime;
     
     logic beatReset;
     //Beat is reset halfway between beatEnables
