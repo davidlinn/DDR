@@ -1,9 +1,5 @@
 # Starter code taken from https://learn.adafruit.com/adafruit-mpr121-12-key-capacitive-touch-sensor-breakout-tutorial/python-circuitpython
 
-# Simple test of the MPR121 capacitive touch sensor library.
-# Will print out a message when any of the 12 capacitive touch inputs of the
-# board are touched.  Open the serial REPL after running to see the output.
-# Author: Tony DiCola
 import time
 import board
 import busio
