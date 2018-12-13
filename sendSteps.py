@@ -3,6 +3,7 @@ from time import *
 from omxplayer.player import OMXPlayer
 from pathlib import Path
 from OneThing import *
+from parsesteps import *
 
 STEP3 = 19
 STEP2 = 13
@@ -15,16 +16,23 @@ stepLeds = LEDBoard(STEP3, STEP2, STEP1, STEP0)
 bpmClockLed = LED(BPM_CLK)
 resetLed = LED(RESET_PIN)
 
-def sendSteps():
+def sendSteps(songNum):
 	# pulse reset signal before sending over steps
 	resetLed.on()
 	resetLed.off()
 	# calculate sleep amount outside loop
 	sleepAmount = 30/OneThingBPM
 	# asynchronously play audio
-	player = OMXPlayer(Path(OneThingMP3Path))
+	if songNum == 0:
+		player = OMXPlayer(Path(OneThingMP3Path))
+	else:
+		player = OMXPlayer(Path(TheNightsMusic))
 	# send over steps
-	for step in OneThingSteps:
+	if songNum == 0:
+		chart = OneThingSteps
+	else:
+		chart = TheNightsSteps
+	for step in chart:
 		start = time()
 		stepLeds.value = tuple(step)
 		# pulse BPM clock 
